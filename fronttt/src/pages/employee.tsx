@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { Nav } from "../components/navbar";
 import { Footer } from "../components/footer";
 import { AddEmployee } from "../components/addEmployee";
 import { DisplayEmployee } from "../components/displayEmployee";
+import { getEmployee } from "../Redux/reducer/employee";
 
 const NavBar = styled.nav`
   width: 100%;
@@ -16,15 +18,22 @@ const Add = styled.div`
   width: 50%;
 `;
 
-const Display = styled.div`
-
-`;
+const Display = styled.div``;
 
 const Foot = styled.div`
-  margin-top: 100px;
+  margin-top: 500px;
 `;
 
 export const Employee: React.FC = () => {
+  const dispatch = useDispatch();
+  const employee = useSelector(
+    (state: RootStateOrAny) => state.employee.employee
+  );
+  useEffect(() => {
+    dispatch(getEmployee());
+  }, []);
+
+  //console.log(employee);
   return (
     <div>
       <Nav />

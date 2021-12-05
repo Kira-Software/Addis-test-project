@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { useDispatch, useSelector } from "react-redux";
+import { postEmployee, setEmployee } from "../Redux/reducer/employee";
 
 const Add = styled.div`
   margin-left: 100px;
@@ -35,6 +37,7 @@ const Text = styled.span`
 `;
 
 export const AddEmployee: React.FC = () => {
+  const dispatch = useDispatch();
   const [formdata, setFormdata] = useState({
     employeeName: "",
     dateofBirth: "",
@@ -44,7 +47,13 @@ export const AddEmployee: React.FC = () => {
 
   const changer = (e) => {
     setFormdata({ ...formdata, [e.target.name]: e.target.value });
-    console.log("the formdata value is ", formdata);
+   // console.log("the formdata value is ", formdata);
+  };
+
+  const handleSubmit = () => {
+    console.log("submit button is clicked");
+    dispatch(postEmployee(formdata));
+    console.log("the value of formdata is ", formdata);
   };
   return (
     <Add>
@@ -109,7 +118,7 @@ export const AddEmployee: React.FC = () => {
         <tr>
           <td></td>
           <td>
-            <button>Add</button>
+            <button onClick={handleSubmit}>Add</button>
           </td>
         </tr>
       </table>
