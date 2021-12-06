@@ -7,8 +7,8 @@ const Foot = styled.div`
   width: 100%;
   height: 50px;
 
-  h1 {
-
+  h4 {
+    margin-left: 40%;
   }
 `;
 

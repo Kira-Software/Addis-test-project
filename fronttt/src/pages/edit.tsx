@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { Nav } from "../components/navbar";
-import {Footer} from "../components/footer"
+import { Footer } from "../components/footer";
 import styled from "styled-components";
+import { useDispatch, useSelector } from "react-redux";
+import { editEmployee } from "../Redux/reducer/employee";
 
 const Text = styled.span`
   input {
@@ -34,10 +36,47 @@ const Editform = styled.div`
   margin-top: 50px;
 `;
 
-export const Edit = () => {
+interface Props {
+  id?: string;
+  employeeName?: string;
+  dateofBirth?: string;
+  gender?: string;
+  salary?: Number | any;
+}
+
+export const Edit: React.FC<Props> = ({
+  employeeName,
+  dateofBirth,
+  gender,
+  salary,
+  id,
+}) => {
+  //   let edit =  localStorage.getItem("edit");
+  //  const sth =  JSON.parse(edit)
+  //console.log(employeeName, dateofBirth, gender, salary, id);
+
+  const [editform, setEditform] = useState({
+    editemployeeName: employeeName,
+    editdateofBirth: dateofBirth,
+    editgender: gender,
+    editsalary: salary,
+  });
+
+  const dispatch = useDispatch();
+
+  const handleEdit = () => {
+    localStorage.setItem("open", "display");
+    console.log("editform value is ", editform);
+    dispatch(editEmployee(id, editform));
+    // window.location.reload();
+  };
+
+  const changer = (e) => {
+    setEditform({ ...editform, [e.target.name]: e.target.value });
+  };
   return (
     <div>
-      <Nav />
+      {/* <Nav /> */}
       <Editform>
         <h3>Edit page</h3>
 
@@ -46,7 +85,14 @@ export const Edit = () => {
             <td>Name</td>
             <td>
               <Text>
-                <input type="text" placeholder="Employee Name" id="name" />
+                <input
+                  type="text"
+                  placeholder="Employee Name"
+                  id="name"
+                  value={editform.editemployeeName}
+                  onChange={(e) => changer(e)}
+                  name="editemployeeName"
+                />
               </Text>
             </td>
           </tr>
@@ -54,7 +100,12 @@ export const Edit = () => {
             <td>Birth Date</td>
             <td>
               <Text>
-                <input type="date" />
+                <input
+                  type="date"
+                  //value={editform.editdateofBirth}
+                  onChange={(e) => changer(e)}
+                  name="editdateofBirth"
+                />
               </Text>
             </td>
           </tr>
@@ -63,10 +114,22 @@ export const Edit = () => {
             <td>
               <Radio>
                 <label>Male: </label>
-                <input type="radio" value="Male" name="gender" />
+                <input
+                  type="radio"
+                  value="Male"
+                  checked={editform.editgender === "Male" ? true : false}
+                  onChange={(e) => changer(e)}
+                  name="editgender"
+                />
 
                 <label>Female: </label>
-                <input type="radio" value="Female" name="gender" />
+                <input
+                  type="radio"
+                  value="Female"
+                  checked={editform.editgender === "Female" ? true : false}
+                  onChange={(e) => changer(e)}
+                  name="editgender"
+                />
               </Radio>
             </td>
           </tr>
@@ -74,7 +137,13 @@ export const Edit = () => {
             <td>Salary</td>
             <td>
               <Text>
-                <input type="number" id="name" />
+                <input
+                  type="number"
+                  id="name"
+                  value={editform.editsalary}
+                  onChange={(e) => changer(e)}
+                  name="editsalary"
+                />
               </Text>
             </td>
           </tr>
@@ -83,7 +152,7 @@ export const Edit = () => {
             <td>
               <Button>
                 {" "}
-                <button>Edit</button>
+                <button onClick={handleEdit}>Edit</button>
               </Button>
             </td>
           </tr>

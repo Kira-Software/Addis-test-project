@@ -14,3 +14,19 @@ export function requestPostEmployee(action) {
     data: action.payload,
   });
 }
+
+export function requestEditEmployee(action) {
+  return axios.request({
+    method: "patch",
+    url: `http://localhost:7000/${action.payload.id}`,
+    data: action.payload.employee,
+  });
+}
+
+export function requestDeleteEmployee(action) {
+  return axios.request({
+    method: "delete",
+    url: `http://localhost:7000/${action.payload.id}`,
+    //data: action.payload.employee,
+  });
+}

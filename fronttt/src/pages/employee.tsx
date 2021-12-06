@@ -41,9 +41,9 @@ export const Employee: React.FC = () => {
         <AddEmployee />
       </Add>
 
-      <Display>
+      {/* <Display> */}
         <DisplayEmployee />
-      </Display>
+      {/* </Display> */}
 
       <Foot>
         <Footer />

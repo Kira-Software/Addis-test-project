@@ -38,12 +38,21 @@ router.get("/", async (req, res) => {
 
 router.patch("/:id", async (req, res) => {
   try {
-    const { employeeName, dateofBirth, gender, salary } = req.body;
+    const { editemployeeName, editdateofBirth, editgender, editsalary } =
+      req.body;
     console.log("the result of the id is " + req.params.id);
     console.log("req.body is ", req.body);
     const updated = await EmployeeModel.findOneAndUpdate(
       { _id: req.params.id },
-      { $set: { employeeName, dateofBirth, gender, salary }, new: true }
+      {
+        $set: {
+          employeeName: editemployeeName,
+          dateofBirth: editdateofBirth,
+          gender: editgender,
+          salary: editsalary,
+        },
+        new: true,
+      }
     );
 
     res.send(updated);
