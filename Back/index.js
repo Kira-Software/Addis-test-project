@@ -18,7 +18,7 @@ app.use(bodyParser.json());
 app.use("/", employeeController);
 
 mongoose
-  .connect("mongodb://localhost:27017/addis", { useNewUrlParser: true })
+  .connect("mongodb://mongo:27017/docker-node-mongo", { useNewUrlParser: true })
   .then(() => {
     console.log("database connected successfully");
   });
